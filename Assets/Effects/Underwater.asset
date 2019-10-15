@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Underwater
   m_EditorClassIdentifier: 
   baseMaterial: {fileID: 2100000, guid: 7cd59ae059edf6c46bccb3a034d369f3, type: 2}
-  strength: 0.01
+  strength: 0.005
   waterColour: {r: 1, g: 1, b: 1, a: 1}
