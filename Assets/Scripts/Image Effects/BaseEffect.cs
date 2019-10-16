@@ -6,5 +6,6 @@ public abstract class BaseEffect : ScriptableObject
 {
     protected Material baseMaterial;
 
+    public virtual void OnCreate() { }
     public abstract void Render(RenderTexture src, RenderTexture dst);
 }

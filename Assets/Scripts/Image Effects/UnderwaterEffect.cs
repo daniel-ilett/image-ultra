@@ -12,9 +12,9 @@ public class UnderwaterEffect : BaseEffect
     private Color waterColour = Color.white;
 
     // Find the Underwater shader source.
-    private void Awake()
+    public override void OnCreate()
     {
-        baseMaterial = new Material(Shader.Find("Shaders/Underwater"));
+        baseMaterial = new Material(Resources.Load<Shader>("Shaders/Underwater"));
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)

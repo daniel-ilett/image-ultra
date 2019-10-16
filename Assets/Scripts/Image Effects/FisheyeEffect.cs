@@ -9,9 +9,9 @@ public class FisheyeEffect : BaseEffect
     private float pow;
 
     // Find the Fisheye shader source.
-    private void Awake()
+    public override void OnCreate()
     {
-        baseMaterial = new Material(Shader.Find("Shaders/Fisheye"));
+        baseMaterial = new Material(Resources.Load<Shader>("Shaders/Fisheye"));
     }
 
     private void Update()
