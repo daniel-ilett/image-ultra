@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910c668a8ea92804a938d8489261c3b1, type: 3}
   m_Name: Fisheye
   m_EditorClassIdentifier: Assembly-CSharp::FisheyeEffect
-  baseMaterial: {fileID: 2100000, guid: 8101885d6d54b324aa9943c85586cd35, type: 2}
-  pow: 2
+  pow: 3.5

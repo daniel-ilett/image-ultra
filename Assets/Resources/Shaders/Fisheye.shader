@@ -46,6 +46,7 @@ Shader "UltraEffects/Fisheye"
 
             uniform sampler2D _MainTex;
 			uniform float _BarrelPower;
+			uniform fixed4 _CullColour;
 
 			// Inflate the centre of the screen.
 			float2 distort(float2 p)
@@ -65,15 +66,12 @@ Shader "UltraEffects/Fisheye"
 				float2 uv;
 				float d = length(xy);
 
-				if (d < 1.0)
+				if (d >= 1.0)
 				{
-					uv = distort(xy);
-				}
-				else
-				{
-					uv = i.uv;
+					discard;
 				}
 
+				uv = distort(xy);
 				return tex2D(_MainTex, uv);
             }
             ENDCG

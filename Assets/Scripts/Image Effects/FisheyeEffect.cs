@@ -12,6 +12,8 @@ public class FisheyeEffect : BaseEffect
     public override void OnCreate()
     {
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/Fisheye"));
+
+        baseMaterial.SetFloat("_BarrelPower", pow);
     }
 
     private void Update()
