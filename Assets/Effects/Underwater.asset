@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b79b48b803fc424a93b9d5d93740447, type: 3}
   m_Name: Underwater
   m_EditorClassIdentifier: 
-  baseMaterial: {fileID: 2100000, guid: 7cd59ae059edf6c46bccb3a034d369f3, type: 2}
+  normalMap: {fileID: 2800000, guid: 2de494aec6f5ceb438b9bbc4a72a847f, type: 3}
   strength: 0.005
   waterColour: {r: 1, g: 1, b: 1, a: 1}

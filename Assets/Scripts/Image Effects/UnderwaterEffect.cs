@@ -6,6 +6,9 @@ using UnityEngine;
 public class UnderwaterEffect : BaseEffect
 {
     [SerializeField]
+    private Texture2D normalMap;
+
+    [SerializeField]
     private float strength = 0.01f;
 
     [SerializeField]
@@ -15,6 +18,10 @@ public class UnderwaterEffect : BaseEffect
     public override void OnCreate()
     {
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/Underwater"));
+
+        baseMaterial.SetTexture("_BumpMap", normalMap);
+        baseMaterial.SetFloat("_Strength", strength);
+        baseMaterial.SetColor("_WaterColour", waterColour);
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)
