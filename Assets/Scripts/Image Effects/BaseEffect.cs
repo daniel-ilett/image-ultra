@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseEffect : ScriptableObject
 {
-    public Material baseMaterial;
+    protected Material baseMaterial;
 
     public abstract void Render(RenderTexture src, RenderTexture dst);
 }

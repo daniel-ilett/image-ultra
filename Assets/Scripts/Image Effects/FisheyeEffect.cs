@@ -8,6 +8,12 @@ public class FisheyeEffect : BaseEffect
     [SerializeField]
     private float pow;
 
+    // Find the Fisheye shader source.
+    private void Awake()
+    {
+        baseMaterial = new Material(Shader.Find("Shaders/Fisheye"));
+    }
+
     private void Update()
     {
         baseMaterial.SetFloat("_BarrelPower", pow);

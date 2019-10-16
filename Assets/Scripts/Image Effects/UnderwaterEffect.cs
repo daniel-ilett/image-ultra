@@ -11,6 +11,12 @@ public class UnderwaterEffect : BaseEffect
     [SerializeField]
     private Color waterColour = Color.white;
 
+    // Find the Underwater shader source.
+    private void Awake()
+    {
+        baseMaterial = new Material(Shader.Find("Shaders/Underwater"));
+    }
+
     public override void Render(RenderTexture src, RenderTexture dst)
     {
         Graphics.Blit(src, dst, baseMaterial);

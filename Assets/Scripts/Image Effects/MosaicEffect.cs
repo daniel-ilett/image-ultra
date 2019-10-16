@@ -21,6 +21,12 @@ public class MosaicEffect : BaseEffect
         }
     }
 
+    // Find the Mosaic shader source.
+    private void Awake()
+    {
+        baseMaterial = new Material(Shader.Find("Shaders/Mosaic"));
+    }
+
     public override void Render(RenderTexture src, RenderTexture dst)
     {
         RenderTexture tmp = 

@@ -1,5 +1,8 @@
 ﻿// Based on code from:
 // https://www.geeks3d.com/20140213/glsl-shader-library-fish-eye-and-dome-and-barrel-distortion-post-processing-filters/2/
+
+/*	This shader imitates a fisheye lens using barrel distortion.
+*/
 Shader "UltraEffects/Fisheye"
 {
     Properties
@@ -32,6 +35,7 @@ Shader "UltraEffects/Fisheye"
                 float4 vertex : SV_POSITION;
             };
 
+			// Standard vertex shader.
             v2f vert (appdata v)
             {
                 v2f o;
@@ -43,6 +47,7 @@ Shader "UltraEffects/Fisheye"
             uniform sampler2D _MainTex;
 			uniform float _BarrelPower;
 
+			// Inflate the centre of the screen.
 			float2 distort(float2 p)
 			{
 				float theta = atan2(p.y, p.x);
