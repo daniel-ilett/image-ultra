@@ -46,24 +46,22 @@ Shader "UltraEffects/Fisheye"
 
             uniform sampler2D _MainTex;
 			uniform float _BarrelPower;
-			uniform fixed4 _CullColour;
 
-			// Inflate the centre of the screen.
-			float2 distort(float2 p)
+			// Inflate the centre of the screen, returning a UV position.
+			float2 distort(float2 pos)
 			{
-				float theta = atan2(p.y, p.x);
-				float radius = length(p);
+				float theta = atan2(pos.y, pos.x);
+				float radius = length(pos);
 				radius = pow(radius, _BarrelPower);
-				p.x = radius * cos(theta);
-				p.y = radius * sin(theta);
+				pos.x = radius * cos(theta);
+				pos.y = radius * sin(theta);
 
-				return 0.5 * (p + 1.0);
+				return 0.5 * (pos + 1.0);
 			}
 
             fixed4 frag (v2f i) : SV_Target
             {
                 float2 xy = 2.0 * i.uv - 1.0;
-				float2 uv;
 				float d = length(xy);
 
 				if (d >= 1.0)
@@ -71,7 +69,7 @@ Shader "UltraEffects/Fisheye"
 					discard;
 				}
 
-				uv = distort(xy);
+				float2 uv = distort(xy);
 				return tex2D(_MainTex, uv);
             }
             ENDCG
