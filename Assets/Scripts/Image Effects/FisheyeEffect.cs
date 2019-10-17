@@ -16,11 +16,6 @@ public class FisheyeEffect : BaseEffect
         baseMaterial.SetFloat("_BarrelPower", pow);
     }
 
-    private void Update()
-    {
-        baseMaterial.SetFloat("_BarrelPower", pow);
-    }
-
     public override void Render(RenderTexture src, RenderTexture dst)
     {
         Graphics.Blit(src, dst, baseMaterial);
