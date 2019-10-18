@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Underwater Fisheye
   m_EditorClassIdentifier: 
   effects:
-  - {fileID: 11400000, guid: 679b8550158abd54ca1adc6e3d43c49b, type: 2}
-  - {fileID: 11400000, guid: 940d5e71f52132b46b550efa9b29454e, type: 2}
+  - {fileID: 11400000, guid: ed94747718992184caf83406ab831a6e, type: 2}
+  - {fileID: 11400000, guid: 52f85a0893107384a9951c7d008383e8, type: 2}
