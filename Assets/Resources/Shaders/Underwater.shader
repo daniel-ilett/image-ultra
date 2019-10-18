@@ -54,9 +54,7 @@
             {
 				half3 normal = UnpackNormal(tex2D(_BumpMap, (i.uv + _Time.x) % 1.0));
 
-				float2 uvOffset = normal * _Strength;
-
-				float2 uv = i.uv + uvOffset;
+				float2 uv = i.uv + normal * _Strength;
 
                 fixed4 col = tex2D(_MainTex, uv);
 
