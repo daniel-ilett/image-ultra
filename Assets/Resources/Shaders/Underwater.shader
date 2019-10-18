@@ -42,24 +42,19 @@
             }
 
             uniform sampler2D _MainTex;
+
 			uniform sampler2D _BumpMap;
+			uniform float _Strength;
 
 			uniform float4 _WaterColour;
 			uniform float _FogStrength;
 			uniform sampler2D _CameraDepthTexture;
-			uniform float4 _CameraDepthTexture_TexelSize;
-
-			uniform float _Strength;
 
             fixed4 frag (v2f i) : SV_Target
             {
 				half3 normal = UnpackNormal(tex2D(_BumpMap, (i.uv + _Time.x) % 1.0));
 
 				float2 uvOffset = normal * _Strength;
-
-				// Take into account aspect ratio.
-				uvOffset.y /=
-					_CameraDepthTexture_TexelSize.z * abs(_CameraDepthTexture_TexelSize.y);
 
 				float2 uv = i.uv + uvOffset;
 
