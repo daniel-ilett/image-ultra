@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23e7812f5e80a5741901c560494b401c, type: 3}
   m_Name: Mosaic
   m_EditorClassIdentifier: 
-  yTileCount: 100
+  yTileCount: 200
   overlayTexture: {fileID: 2800000, guid: e8db7965f7a917f4b94cb2b4189430ae, type: 3}

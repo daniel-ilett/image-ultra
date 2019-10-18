@@ -8,15 +8,24 @@ public class CompositeEffect : BaseEffect
     [SerializeField]
     private List<BaseEffect> effects;
 
+    // Call OnCreate() on all effects in the list.
+    public override void OnCreate()
+    {
+        for(int i = 0; i < effects.Count; ++i)
+        {
+            effects[i].OnCreate();
+        }
+    }
+
     public override void Render(RenderTexture src, RenderTexture dst)
     {
         RenderTexture tmpSrc = RenderTexture.GetTemporary(src.width, src.height);
         RenderTexture tmpDst = RenderTexture.GetTemporary(src.width, src.height);
         Graphics.Blit(src, tmpSrc);
 
-        foreach(var effect in effects)
+        for (int i = 0; i < effects.Count; ++i)
         {
-            effect.Render(tmpSrc, tmpDst);
+            effects[i].Render(tmpSrc, tmpDst);
 
             // Swap the two render textures.
             var tmp = tmpSrc;
