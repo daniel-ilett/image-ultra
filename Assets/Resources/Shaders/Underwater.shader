@@ -5,6 +5,8 @@
         _MainTex ("Texture", 2D) = "white" {}
 		_BumpMap("Normal Map", 2D) = "bump" {}
 		_Strength("Strength", Float) = 0.01
+		_WaterColour("Water Colour", Color) = (1.0, 1.0, 1.0, 1.0)
+		_FogStrength("Fog Strength", Float) = 0.1
     }
     SubShader
     {
@@ -41,6 +43,9 @@
 
             uniform sampler2D _MainTex;
 			uniform sampler2D _BumpMap;
+
+			uniform float4 _WaterColour;
+			uniform float _FogStrength;
 			uniform sampler2D _CameraDepthTexture;
 			uniform float4 _CameraDepthTexture_TexelSize;
 
@@ -52,13 +57,18 @@
 
 				float2 uvOffset = normal * _Strength;
 
-				uvOffset.y *=
+				// Take into account aspect ratio.
+				uvOffset.y /=
 					_CameraDepthTexture_TexelSize.z * abs(_CameraDepthTexture_TexelSize.y);
 
 				float2 uv = i.uv + uvOffset;
 
                 fixed4 col = tex2D(_MainTex, uv);
 
+				float depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, uv));
+				depth = Linear01Depth(depth);
+
+				col = lerp(col, _WaterColour, depth * _FogStrength);
 
                 return col;
             }

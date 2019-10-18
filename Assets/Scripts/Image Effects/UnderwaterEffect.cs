@@ -14,6 +14,9 @@ public class UnderwaterEffect : BaseEffect
     [SerializeField]
     private Color waterColour = Color.white;
 
+    [SerializeField]
+    private float fogStrength = 0.1f;
+
     // Find the Underwater shader source.
     public override void OnCreate()
     {
@@ -22,6 +25,7 @@ public class UnderwaterEffect : BaseEffect
         baseMaterial.SetTexture("_BumpMap", normalMap);
         baseMaterial.SetFloat("_Strength", strength);
         baseMaterial.SetColor("_WaterColour", waterColour);
+        baseMaterial.SetFloat("_FogStrength", fogStrength);
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)
