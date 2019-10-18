@@ -53,8 +53,8 @@
 
 				float2 offset = float2(depth * _Strength, 0.0f);
 
-                float2 redUV = i.uv + offset;
-				float2 blueUV = i.uv - offset;
+                float2 redUV = i.uv - offset;
+				float2 blueUV = i.uv + offset;
 
 				fixed4 redCol = tex2D(_MainTex, redUV) * float4(1.0, 0.0, 0.0, 1.0);
 				fixed4 blueCol = tex2D(_MainTex, blueUV) * float4(0.0, 1.0, 1.0, 1.0);
