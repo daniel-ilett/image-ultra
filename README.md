@@ -14,7 +14,9 @@ Several shader effects will be explored, including:
 - Anaglyph (red-blue) 3D;
 - Cinematic;
 - Colour Invert;
-- Colour channel separation.
+- Colour channel separation;
+- Disintegration;
+- Holographic.
 
 As before, auxiliary shaders and helper scripts will be included.
 
