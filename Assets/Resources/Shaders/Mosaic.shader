@@ -4,7 +4,9 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_OverlayTex("Overlay Texture", 2D) = "white" {}
-		_YTileCount("Tile Count", Int) = 100
+		_OverlayColour("Overlay Colour", Color) = (1, 1, 1, 1)
+		_XTileCount("X-axis Tile Count", Int) = 100
+		_YTileCount("Y-axis Tile Count", Int) = 100
     }
     SubShader
     {
@@ -41,18 +43,16 @@
 
             uniform sampler2D _MainTex;
 			uniform sampler2D _OverlayTex;
+			uniform float4 _OverlayColour;
+			uniform int _XTileCount;
 			uniform int _YTileCount;
-			uniform float4 _CameraDepthTexture_TexelSize;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-				float2 overlayUV = i.uv * _YTileCount;
-				overlayUV.y /=
-					_CameraDepthTexture_TexelSize.z * abs(_CameraDepthTexture_TexelSize.y);
-
-				float4 overlayCol = tex2D(_OverlayTex, overlayUV);
+				float2 overlayUV = i.uv * float2(_XTileCount, _YTileCount);
+				float4 overlayCol = tex2D(_OverlayTex, overlayUV) * _OverlayColour;
 
 				col = lerp(col, overlayCol, overlayCol.a);
 

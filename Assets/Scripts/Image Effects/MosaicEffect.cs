@@ -6,54 +6,31 @@ using UnityEngine;
 public class MosaicEffect : BaseEffect
 {
     [SerializeField]
-    private int yTileCount = 100;
-
-    [SerializeField]
     private Texture2D overlayTexture;
 
-    /*
-    // Reset the tile count whenever it changes.
-    private int YTileCount
-    {
-        get
-        {
-            return yTileCount;
-        }
-        set
-        {
-            yTileCount = value;
-            baseMaterial.SetInt("_YTileCount", value);
-        }
-    }
+    [SerializeField]
+    private Color overlayColour = Color.white;
 
-    // Reset the overlay texture whenever it changes.
-    private Texture2D OverlayTexture
-    {
-        get
-        {
-            return overlayTexture;
-        }
-        set
-        {
-            overlayTexture = value;
-            baseMaterial.SetTexture("_OverlayTex", value);
-        }
-    }
-    */
+    [SerializeField]
+    private int xTileCount = 100;
 
     // Find the Mosaic shader source.
     public override void OnCreate()
     {
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/Mosaic"));
 
-        baseMaterial.SetInt("_YTileCount", yTileCount);
         baseMaterial.SetTexture("_OverlayTex", overlayTexture);
+        baseMaterial.SetColor("_OverlayColour", overlayColour);
+        baseMaterial.SetInt("_XTileCount", xTileCount);
+        baseMaterial.SetInt("_YTileCount", 
+            Mathf.RoundToInt((float)Screen.height / Screen.width * xTileCount));
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)
     {
         RenderTexture tmp = 
-            RenderTexture.GetTemporary(yTileCount, (int)(((float)src.height / src.width) * yTileCount));
+            RenderTexture.GetTemporary(xTileCount, 
+            Mathf.RoundToInt(((float)src.height / src.width) * xTileCount));
 
         tmp.filterMode = FilterMode.Point;
         
