@@ -56,10 +56,13 @@
                 float2 redUV = i.uv - offset;
 				float2 blueUV = i.uv + offset;
 
-				fixed4 redCol = tex2D(_MainTex, redUV) * float4(1.0, 0.0, 0.0, 1.0);
-				fixed4 blueCol = tex2D(_MainTex, blueUV) * float4(0.0, 1.0, 1.0, 1.0);
+				fixed4 redCol = tex2D(_MainTex, redUV);
+				fixed4 blueCol = tex2D(_MainTex, blueUV);
 
-				float4 col = (redCol + blueCol) / 2.0;
+				float4 col;
+				col.r = redCol.r;
+				col.gb = blueCol.gb;
+				col.a = 1.0f;
 
                 return col;
             }
