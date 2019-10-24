@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88284599edd3f7439fb69c1b8dbaea9, type: 3}
   m_Name: AnaglyphPro
   m_EditorClassIdentifier: 
-  strength: 0.05
-  focalDistance: 10
+  rotation: 0.25
   cameraPrefab: {fileID: 4623502856824799682, guid: 663e6b2ba352f2744bae338bf19cc09f,
     type: 3}

@@ -50,8 +50,6 @@
 				float4 rightCol = tex2D(_RightTex, i.uv);
 
 				col.r = rightCol.r;
-				//col.g = 0.0f;
-				//col.b = leftCol.b;
 				col.gb = leftCol.gb;
 				col.a = 1.0f;
 
