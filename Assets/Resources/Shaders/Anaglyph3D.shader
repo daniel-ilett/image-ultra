@@ -40,7 +40,6 @@
 
             uniform sampler2D _MainTex;
 			uniform sampler2D _CameraDepthTexture;
-			uniform float4 _CameraDepthTexture_TexelSize;
 
 			uniform float _Strength;
 
@@ -48,8 +47,6 @@
             {
 				float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
 				depth = Linear01Depth(depth);
-				depth *= 
-					_CameraDepthTexture_TexelSize.z * abs(_CameraDepthTexture_TexelSize.y);
 
 				float2 offset = float2(depth * _Strength, 0.0f);
 

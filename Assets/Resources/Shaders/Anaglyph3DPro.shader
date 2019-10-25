@@ -2,7 +2,6 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
 		_LeftTex ("Left Eye Image", 2D) = "white" {}
 		_RightTex ("Right Eye Image", 2D) = "white" {}
     }
@@ -39,7 +38,6 @@
                 return o;
             }
 
-            uniform sampler2D _MainTex;
 			uniform sampler2D _LeftTex;
 			uniform sampler2D _RightTex;
 
