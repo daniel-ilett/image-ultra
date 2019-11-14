@@ -37,9 +37,11 @@
 			float rand01 = rand(pos + float2(0.0f, 1.0f));
 			float rand11 = rand(pos + float2(1.0f, 1.0f));
 
-			float x1 = quinterp(float2(rand00, rand01));
-			float x2 = quinterp(float2(rand01, rand11));
-			float y  = quinterp(float2(x1, x2));
+			float2 d = frac(st);
+
+			float x1 = lerp(rand00, rand01, quinterp(d.x));
+			float x2 = lerp(rand01, rand11, quinterp(d.x));
+			float y  = lerp(x1, x2, quinterp(d.y));
 
 			return y;
 		}
