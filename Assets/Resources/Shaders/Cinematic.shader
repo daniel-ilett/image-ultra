@@ -1,4 +1,4 @@
-﻿Shader "UltraEffects/CinematicPerlin"
+﻿Shader "UltraEffects/Cinematic"
 {
     Properties
     {
@@ -6,6 +6,7 @@
 		_Strength("Noise Strength", Float) = 0.1
 		_Aspect("Aspect Ratio", Float) = 1.777
     }
+
     SubShader
     {
         // No culling or depth
@@ -13,12 +14,11 @@
 
 		CGINCLUDE
 
-		const float PI = 3.14159;
-
 		// Generate time-sensitive random numbers.
 		float rand(float2 st)
 		{
-			return frac(sin(dot(st + float2(_Time.y, _Time.y), float2(12.9898f, 78.233f))) * 43758.5453123f);
+			return frac(sin(dot(st + float2(_Time.y, _Time.y), 
+				float2(12.9898f, 78.233f))) * 43758.5453123f);
 		}
 
 		// Quintic interpolation curve.

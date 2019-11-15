@@ -14,7 +14,7 @@ public class CinematicEffect : BaseEffect
     // Find the Cinematic shader source.
     public override void OnCreate()
     {
-        baseMaterial = new Material(Resources.Load<Shader>("Shaders/CinematicPerlin"));
+        baseMaterial = new Material(Resources.Load<Shader>("Shaders/Cinematic"));
 
         baseMaterial.SetFloat("_Strength", strength);
         baseMaterial.SetFloat("_Aspect", aspectRatio);
