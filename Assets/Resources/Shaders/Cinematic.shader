@@ -17,7 +17,7 @@
 		// Generate time-sensitive random numbers between 0 and 1.
 		float rand(float2 pos)
 		{
-			return frac(sin(dot(pos + float2(_Time.y, _Time.y),
+			return frac(sin(dot(pos + _Time.y,
 				float2(12.9898f, 78.233f))) * 43758.5453123f);
 		}
 
@@ -50,10 +50,10 @@
 			float2 rand01 = randUnitCircle(pos01);
 			float2 rand11 = randUnitCircle(pos11);
 
-			float dot00 = dot(rand00, normalize(pos00 - pixel));
-			float dot10 = dot(rand10, normalize(pos10 - pixel));
-			float dot01 = dot(rand01, normalize(pos01 - pixel));
-			float dot11 = dot(rand11, normalize(pos11 - pixel));
+			float dot00 = dot(rand00, pos00 - pixel);
+			float dot10 = dot(rand10, pos10 - pixel);
+			float dot01 = dot(rand01, pos01 - pixel);
+			float dot11 = dot(rand11, pos11 - pixel);
 
 			float2 d = frac(pixel);
 

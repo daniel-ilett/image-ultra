@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e69b0df21ccbe459a81c68943b69f5, type: 3}
   m_Name: Cinematic
   m_EditorClassIdentifier: 
-  strength: 0.1
+  strength: 0.15
   aspectRatio: 2.5
