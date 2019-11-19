@@ -28,7 +28,7 @@
 			float randVal = rand(pos);
 			float theta = 2.0f * PI * randVal;
 
-			return normalize(float2(cos(theta), sin(theta)));
+			return float2(cos(theta), sin(theta));
 		}
 
 		// Quintic interpolation curve.
