@@ -14,11 +14,21 @@
 
 		CGINCLUDE
 
-		// Generate time-sensitive random numbers.
-		float rand(float2 st)
+		// Generate time-sensitive random numbers between 0 and 1.
+		float rand(float2 pos)
 		{
-			return frac(sin(dot(st + float2(_Time.y, _Time.y), 
+			return frac(sin(dot(pos + float2(_Time.y, _Time.y),
 				float2(12.9898f, 78.233f))) * 43758.5453123f);
+		}
+
+		// Generate a random vector on the unit circle.
+		float2 randUnitCircle(float2 pos)
+		{
+			const float PI = 3.14159265f;
+			float randVal = rand(pos);
+			float theta = 2.0f * PI * randVal;
+
+			return normalize(float2(cos(theta), sin(theta)));
 		}
 
 		// Quintic interpolation curve.
@@ -28,19 +38,27 @@
 		}
 
 		// Perlin gradient noise generator.
-		float perlin2D(float2 st)
+		float perlin2D(float2 pixel)
 		{
-			float2 pos = floor(st);
+			float2 pos00 = floor(pixel);
+			float2 pos10 = pos00 + float2(1.0f, 0.0f);
+			float2 pos01 = pos00 + float2(0.0f, 1.0f);
+			float2 pos11 = pos00 + float2(1.0f, 1.0f);
 
-			float rand00 = rand(pos);
-			float rand10 = rand(pos + float2(1.0f, 0.0f));
-			float rand01 = rand(pos + float2(0.0f, 1.0f));
-			float rand11 = rand(pos + float2(1.0f, 1.0f));
+			float2 rand00 = randUnitCircle(pos00);
+			float2 rand10 = randUnitCircle(pos10);
+			float2 rand01 = randUnitCircle(pos01);
+			float2 rand11 = randUnitCircle(pos11);
 
-			float2 d = frac(st);
+			float dot00 = dot(rand00, normalize(pos00 - pixel));
+			float dot10 = dot(rand10, normalize(pos10 - pixel));
+			float dot01 = dot(rand01, normalize(pos01 - pixel));
+			float dot11 = dot(rand11, normalize(pos11 - pixel));
 
-			float x1 = lerp(rand00, rand01, quinterp(d.x));
-			float x2 = lerp(rand01, rand11, quinterp(d.x));
+			float2 d = frac(pixel);
+
+			float x1 = lerp(dot00, dot10, quinterp(d.x));
+			float x2 = lerp(dot01, dot11, quinterp(d.x));
 			float y  = lerp(x1, x2, quinterp(d.y));
 
 			return y;
@@ -84,7 +102,7 @@
             {
 				// Calculate Perlin noise.
 				float4 col = tex2D(_MainTex, i.uv);
-                float2 pos = i.uv * _ScreenParams.xy;
+				float2 pos = i.uv * _ScreenParams.xy;
 				float n = perlin2D(pos);
 
 				// Calculate cinematic bars.
