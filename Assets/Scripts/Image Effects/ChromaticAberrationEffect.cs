@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Image Effects Ultra/Chromatic Aberration", order = 1)]
+public class ChromaticAberrationEffect : BaseEffect
+{
+    [SerializeField]
+    private float strength = 0.1f;
+
+    [SerializeField]
+    private float size = 0.25f;
+
+    // Find the Chromatic Aberration shader source.
+    public override void OnCreate()
+    {
+        baseMaterial = new Material(Resources.Load<Shader>("Shaders/ChromaticAberration"));
+        baseMaterial.SetFloat("_Strength", strength);
+        baseMaterial.SetFloat("_Size", size);
+    }
+
+    public override void Render(RenderTexture src, RenderTexture dst)
+    {
+        Graphics.Blit(src, dst, baseMaterial);
+    }
+}

@@ -1,4 +1,4 @@
-﻿Shader "Hidden/ChromaticAberration"
+﻿Shader "UltraEffects/ChromaticAberration"
 {
     Properties
     {
