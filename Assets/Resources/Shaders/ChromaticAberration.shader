@@ -3,7 +3,9 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-		_Strength("Strength", Float) = 0.1
+		_Strength("Strength", Float) = 0.5
+		_Size("Size", Float) = 0.25
+		_Falloff("Falloff", Float) = 0.25
     }
     SubShader
     {
@@ -40,10 +42,19 @@
 
             uniform sampler2D _MainTex;
 			uniform float _Strength;
+			uniform float _Size;
+			uniform float _Falloff;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
+
+				float dist = distance(i.uv, float2(0.5f, 0.5f));
+				float vignette = smoothstep(_Size, _Size - _Falloff, dist);
+				vignette = lerp(1.0f, vignette, _Strength);
+
+				col = saturate(col * vignette);
+
                 return col;
             }
             ENDCG

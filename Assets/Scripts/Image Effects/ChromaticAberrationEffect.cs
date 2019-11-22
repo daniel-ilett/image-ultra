@@ -6,10 +6,13 @@ using UnityEngine;
 public class ChromaticAberrationEffect : BaseEffect
 {
     [SerializeField]
-    private float strength = 0.1f;
+    private float strength = 0.5f;
 
     [SerializeField]
     private float size = 0.25f;
+
+    [SerializeField]
+    private float falloff = 0.25f;
 
     // Find the Chromatic Aberration shader source.
     public override void OnCreate()
@@ -17,6 +20,7 @@ public class ChromaticAberrationEffect : BaseEffect
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/ChromaticAberration"));
         baseMaterial.SetFloat("_Strength", strength);
         baseMaterial.SetFloat("_Size", size);
+        baseMaterial.SetFloat("_Falloff", falloff);
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)
