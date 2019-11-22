@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 453b213dcba0be343b8e944211c21020, type: 3}
   m_Name: Chromatic Aberration
   m_EditorClassIdentifier: 
-  strength: 0.5
-  size: 0.75
-  falloff: 0.25
+  strength: 0.004
+  size: 0.5
+  falloff: 0.5

@@ -4,7 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_Strength("Strength", Float) = 0.5
-		_Size("Size", Float) = 0.25
+		_Size("Size", Float) = 0.75
 		_Falloff("Falloff", Float) = 0.25
     }
     SubShader

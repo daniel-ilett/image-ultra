@@ -3,8 +3,8 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-		_Strength("Strength", Float) = 0.5
-		_Size("Size", Float) = 0.25
+		_Strength("Strength", Float) = 0.05
+		_Size("Size", Float) = 0.75
 		_Falloff("Falloff", Float) = 0.25
     }
     SubShader
@@ -47,13 +47,19 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
+				float2 fromCenter = i.uv - float2(0.5f, 0.5f);
+				float dist = length(fromCenter);
+				float vignette = 1.0f - smoothstep(_Size, _Size - _Falloff, dist);
 
-				float dist = distance(i.uv, float2(0.5f, 0.5f));
-				float vignette = smoothstep(_Size, _Size - _Falloff, dist);
-				vignette = lerp(1.0f, vignette, _Strength);
+				float rOffset = fromCenter * vignette * _Strength;
+				float r = dot(tex2D(_MainTex, i.uv + rOffset), float3(1.0f, 0.0f, 0.0f));
 
-				col = saturate(col * vignette);
+				float g = dot(tex2D(_MainTex, i.uv), float3(0.0f, 1.0f, 0.0f));
+
+				float bOffset = -rOffset;
+				float b = dot(tex2D(_MainTex, i.uv + bOffset), float3(0.0f, 0.0f, 1.0f));
+
+				fixed4 col = fixed4(r, g, b, 1.0f);
 
                 return col;
             }

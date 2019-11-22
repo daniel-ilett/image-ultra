@@ -9,7 +9,7 @@ public class VignetteEffect : BaseEffect
     private float strength = 0.5f;
 
     [SerializeField]
-    private float size = 0.25f;
+    private float size = 0.75f;
 
     [SerializeField]
     private float falloff = 0.25f;
