@@ -6,6 +6,8 @@ The [previous series](https://github.com/daniel-ilett/smo-shaders) had a lot of 
 
 This series will be slightly different from the previous one. To cut down on complexity, I'll only include the completed shaders. Like last time, full explanations of the effects, alongside background history where applicable, will be found on https://danielilett.com/.
 
+<a href='https://ko-fi.com/M4M2190VC' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ### Shaders Included
 Several shader effects will be explored, including:
 - Fish-eye lens;
@@ -13,6 +15,9 @@ Several shader effects will be explored, including:
 - Mosaic;
 - Anaglyph (red-blue) 3D;
 - Cinematic;
+- Vignette;
+- Chromatic Aberration;
+
 - Colour Invert;
 - Colour channel separation;
 - Disintegration;
