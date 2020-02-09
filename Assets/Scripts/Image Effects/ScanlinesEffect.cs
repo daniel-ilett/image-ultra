@@ -14,7 +14,7 @@ public class ScanlinesEffect : BaseEffect
     [SerializeField]
     private int size = 8;
 
-    // Find the Vignette shader source.
+    // Find the Scanlines shader source.
     public override void OnCreate()
     {
         if(scanlineTex == null)
