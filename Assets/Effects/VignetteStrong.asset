@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2edb36b73bb8048b168eaa9d4b0ab6, type: 3}
   m_Name: VignetteStrong
   m_EditorClassIdentifier: 
-  strength: 0.5
+  strength: 0.8
   size: 0.65
   falloff: 0.25

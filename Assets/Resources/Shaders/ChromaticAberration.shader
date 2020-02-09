@@ -59,9 +59,7 @@
 				float bOffset = -rOffset;
 				float b = dot(tex2D(_MainTex, i.uv + bOffset), float3(0.0f, 0.0f, 1.0f));
 
-				fixed4 col = fixed4(r, g, b, 1.0f);
-
-                return col;
+				return fixed4(r, g, b, 1.0f);
             }
             ENDCG
         }
