@@ -97,16 +97,15 @@
 			sampler2D _InterferenceTex;
 			float _Speed;
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
 				float2 pos = i.uv * _ScreenParams.xy / 4.0f;
-				float u = perlin2D(pos);
-				float v = perlin2D(pos + 0.5f);
+				float2 offset = float2(perlin2D(pos), perlin2D(pos + 0.5f));
 
-				float2 interferenceUV = i.uv + float2(u, v) * 0.05f + _Time.yy * _Speed;
+				float2 interferenceUV = (i.uv + offset * 0.05f + _Time.yy * _Speed) % 1.0f;
 				float interference = tex2D(_InterferenceTex, interferenceUV);
 
-                fixed4 col = tex2D(_MainTex, i.uv);
+                float4 col = tex2D(_MainTex, i.uv);
 				
 				return lerp(col, 1.0f, interference);
             }

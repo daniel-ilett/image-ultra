@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Interference
   m_EditorClassIdentifier: 
   interferenceTex: {fileID: 2800000, guid: ae24e77d6ee51a741a4d8a887c139104, type: 3}
-  speed: 0.5
+  speed: 0.2

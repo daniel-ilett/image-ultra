@@ -16,5 +16,5 @@ MonoBehaviour:
   dissolveColour: {fileID: 2800000, guid: a8e8448320436ca438485c2f9a194c3d, type: 3}
   threshold: -0.1
   strength: 1
-  tiling: 1.75
+  tiling: 0.5
   backgroundColour: {r: 0.0627451, g: 0.0627451, b: 0.0627451, a: 1}

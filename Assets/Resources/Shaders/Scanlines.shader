@@ -44,12 +44,12 @@
 			float _Strength;
 			int _Size;
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
 				float2 scanlineUV = i.uv * (_ScreenParams.y / _Size);
 
-                fixed4 col = tex2D(_MainTex, i.uv);
-				fixed4 scanlines = tex2D(_ScanlineTex, scanlineUV);
+                float4 col = tex2D(_MainTex, i.uv);
+				float4 scanlines = tex2D(_ScanlineTex, scanlineUV);
                 return lerp(col, col * scanlines, _Strength);
             }
             ENDCG
