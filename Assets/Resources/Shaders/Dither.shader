@@ -41,16 +41,29 @@
             sampler2D _MainTex;
 			sampler2D _NoiseTex;
 			float4 _NoiseTex_TexelSize;
+			sampler2D _CameraDepthTexture;
+
+			float _XOffset;
+			float _YOffset;
+
+			float4 _DarkColor;
+			float4 _LightColor;
 
             float4 frag (v2f i) : SV_Target
             {
                 float3 col = tex2D(_MainTex, i.uv).xyz;
 				float lum = dot(col, float3(0.299f, 0.587f, 0.114f));
 
-				float2 noiseUV = i.uv / 1.5f * _ScreenParams.xy / _NoiseTex_TexelSize.zw;
+				float2 noiseUV = i.uv * _ScreenParams.xy / _NoiseTex_TexelSize.zw;
+				noiseUV += float2(_XOffset, _YOffset);
 				float threshold = (tex2D(_NoiseTex, noiseUV)) / 2.0f + 0.25f;
 
-				float3 rgb = lum < threshold ? float3(0.0f, 0.0f, 0.0f) : float3(1.0f, 1.0f, 1.0f);
+				float3 rgb = lum < threshold ? _DarkColor : _LightColor;
+
+				//float depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv));
+				//depth = Linear01Depth(depth);
+
+				//rgb = depth < 0.9f ? rgb : _DarkColor;
 
 				return float4(rgb, 1.0f);
             }
