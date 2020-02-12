@@ -1,4 +1,4 @@
-﻿Shader "Hidden/Kaleidoscope"
+﻿Shader "UltraEffects/Kaleidoscope"
 {
     Properties
     {
@@ -41,7 +41,7 @@
             sampler2D _MainTex;
 			float _SegmentCount;
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
 				// Convert to polar coordinates.
 				float2 shiftUV = i.uv - 0.5;
@@ -49,16 +49,18 @@
 				float angle = atan2(shiftUV.y, shiftUV.x);
 
 				// Calculate segment angle amount.
-				float segment = UNITY_TWO_PI / _SegmentCount;
+				float segmentAngle = UNITY_TWO_PI / _SegmentCount;
 
 				// Calculate which segment this angle is in.
-				angle -= segment * floor(angle / segment);
-				angle = min(angle, segment - angle);
+				angle -= segmentAngle * floor(angle / segmentAngle);
+
+				// Each segment contains one reflection.
+				angle = min(angle, segmentAngle - angle);
 
 				// Convert back to UV coordinates.
-				float2 uv = float2(cos(angle), sin(angle)) * radius + 0.5;
+				float2 uv = float2(cos(angle), sin(angle)) * radius + 0.5f;
 
-				// Enable border reflections.
+				// Reflect outside the inner circle boundary.
 				uv = max(min(uv, 2.0 - uv), -uv);
 
 				return tex2D(_MainTex, uv);

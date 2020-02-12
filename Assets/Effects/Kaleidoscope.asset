@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b766368916ec24cb5cfcec0463ac74, type: 3}
   m_Name: Kaleidoscope
   m_EditorClassIdentifier: 
-  segments: 5
+  segments: 4
