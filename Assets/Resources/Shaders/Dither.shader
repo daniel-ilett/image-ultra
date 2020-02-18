@@ -41,7 +41,6 @@
             sampler2D _MainTex;
 			sampler2D _NoiseTex;
 			float4 _NoiseTex_TexelSize;
-			sampler2D _CameraDepthTexture;
 
 			float _XOffset;
 			float _YOffset;
@@ -59,11 +58,6 @@
 				float threshold = (tex2D(_NoiseTex, noiseUV)) / 2.0f + 0.25f;
 
 				float3 rgb = lum < threshold ? _DarkColor : _LightColor;
-
-				//float depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv));
-				//depth = Linear01Depth(depth);
-
-				//rgb = depth < 0.9f ? rgb : _DarkColor;
 
 				return float4(rgb, 1.0f);
             }

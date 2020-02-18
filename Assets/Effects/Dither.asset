@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Dither
   m_EditorClassIdentifier: 
   ditherTex: {fileID: 2800000, guid: 91a55e873865bb74384e776a70205fb2, type: 3}
+  darkColor: {r: 0.199, g: 0.195, b: 0.102, a: 1}
+  lightColor: {r: 0.895, g: 1, b: 1, a: 1}

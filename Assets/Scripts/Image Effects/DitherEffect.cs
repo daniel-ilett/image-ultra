@@ -9,10 +9,10 @@ public class DitherEffect : BaseEffect
     private Texture2D ditherTex;
 
     [SerializeField]
-    private Color darkColor = Color.black;
+    private Color darkColor = new Color(0.199f, 0.195f, 0.102f);
 
     [SerializeField]
-    private Color lightColor = Color.white;
+    private Color lightColor = new Color(0.895f, 1.0f, 1.0f);
 
     // Find the Dither shader source.
     public override void OnCreate()
@@ -37,12 +37,12 @@ public class DitherEffect : BaseEffect
         baseMaterial.SetFloat("_XOffset", xOffset);
         baseMaterial.SetFloat("_YOffset", yOffset);
 
-        //RenderTexture super = RenderTexture.GetTemporary(src.width * 2, src.height * 2);
-        RenderTexture half = RenderTexture.GetTemporary(src.width / 3, src.height / 3);
-        //Graphics.Blit(src, super);
-        Graphics.Blit(src, half, baseMaterial);
+        RenderTexture super = RenderTexture.GetTemporary(src.width * 2, src.height * 2);
+        RenderTexture half = RenderTexture.GetTemporary(src.width / 2, src.height / 2);
+        Graphics.Blit(src, super);
+        Graphics.Blit(super, half, baseMaterial);
         Graphics.Blit(half, dst);
         RenderTexture.ReleaseTemporary(half);
-        //RenderTexture.ReleaseTemporary(super);
+        RenderTexture.ReleaseTemporary(super);
     }
 }
