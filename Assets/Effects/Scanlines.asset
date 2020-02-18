@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 547b9f66c5e3b9245827933296338bc8, type: 3}
   m_Name: Scanlines
   m_EditorClassIdentifier: 
-  scanlineTex: {fileID: 2800000, guid: 16cd60bfe9d877c4d9642064f6eb71be, type: 3}
-  strength: 0.4
+  scanlineTex: {fileID: 2800000, guid: b7787af5a461f65478a96c811bc0c036, type: 3}
+  strength: 0.25
   size: 8

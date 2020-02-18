@@ -4,6 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_NoiseTex("Noise Texture", 2D) = "white" {}
+		_ColorRampTex("Color Ramp", 2D) = "white" {}
     }
     SubShader
     {
@@ -39,25 +40,28 @@
             }
 
             sampler2D _MainTex;
+			float4 _MainTex_TexelSize;
+
 			sampler2D _NoiseTex;
 			float4 _NoiseTex_TexelSize;
 
+			sampler2D _ColorRampTex;
+
 			float _XOffset;
 			float _YOffset;
-
-			float4 _DarkColor;
-			float4 _LightColor;
 
             float4 frag (v2f i) : SV_Target
             {
                 float3 col = tex2D(_MainTex, i.uv).xyz;
 				float lum = dot(col, float3(0.299f, 0.587f, 0.114f));
 
-				float2 noiseUV = i.uv * _ScreenParams.xy / _NoiseTex_TexelSize.zw;
+				float2 noiseUV = i.uv * _NoiseTex_TexelSize.xy / _MainTex_TexelSize.xy;
 				noiseUV += float2(_XOffset, _YOffset);
-				float threshold = (tex2D(_NoiseTex, noiseUV)) / 2.0f + 0.25f;
+				float3 threshold = tex2D(_NoiseTex, noiseUV);
+				float thresholdLum = dot(threshold, float3(0.299f, 0.587f, 0.114f));
 
-				float3 rgb = lum < threshold ? _DarkColor : _LightColor;
+				float rampVal = step(thresholdLum, lum);
+				float3 rgb = tex2D(_ColorRampTex, float2(rampVal, 0.5f));
 
 				return float4(rgb, 1.0f);
             }

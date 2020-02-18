@@ -9,10 +9,10 @@ public class DitherEffect : BaseEffect
     private Texture2D ditherTex;
 
     [SerializeField]
-    private Color darkColor = new Color(0.199f, 0.195f, 0.102f);
+    private Texture2D rampTex;
 
     [SerializeField]
-    private Color lightColor = new Color(0.895f, 1.0f, 1.0f);
+    private bool useScrolling = false;
 
     // Find the Dither shader source.
     public override void OnCreate()
@@ -24,21 +24,28 @@ public class DitherEffect : BaseEffect
 
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/Dither"));
         baseMaterial.SetTexture("_NoiseTex", ditherTex);
-        baseMaterial.SetColor("_DarkColor", darkColor);
-        baseMaterial.SetColor("_LightColor", lightColor);
+        baseMaterial.SetTexture("_ColorRampTex", rampTex);
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)
     {
-        var camEuler = Camera.main.transform.eulerAngles;
-        var xOffset = 2.0f * camEuler.y / Camera.main.fieldOfView;
-        var yOffset = -1.0f * Camera.main.aspect * camEuler.x / Camera.main.fieldOfView;
+        var xOffset = 0.0f;
+        var yOffset = 0.0f;
+
+        if(useScrolling)
+        {
+            var camEuler = Camera.main.transform.eulerAngles;
+            xOffset = 4.0f * camEuler.y / Camera.main.fieldOfView;
+            yOffset = -2.0f * Camera.main.aspect * camEuler.x / Camera.main.fieldOfView;
+        }
 
         baseMaterial.SetFloat("_XOffset", xOffset);
         baseMaterial.SetFloat("_YOffset", yOffset);
 
+
         RenderTexture super = RenderTexture.GetTemporary(src.width * 2, src.height * 2);
         RenderTexture half = RenderTexture.GetTemporary(src.width / 2, src.height / 2);
+        half.filterMode = FilterMode.Point;
         Graphics.Blit(src, super);
         Graphics.Blit(super, half, baseMaterial);
         Graphics.Blit(half, dst);
