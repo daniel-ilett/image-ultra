@@ -55,12 +55,12 @@
                 float3 col = tex2D(_MainTex, i.uv).xyz;
 				float lum = dot(col, float3(0.299f, 0.587f, 0.114f));
 
-				float2 noiseUV = i.uv * _NoiseTex_TexelSize.xy / _MainTex_TexelSize.xy;
+				float2 noiseUV = i.uv * _NoiseTex_TexelSize.xy * _MainTex_TexelSize.zw;
 				noiseUV += float2(_XOffset, _YOffset);
 				float3 threshold = tex2D(_NoiseTex, noiseUV);
 				float thresholdLum = dot(threshold, float3(0.299f, 0.587f, 0.114f));
 
-				float rampVal = step(thresholdLum, lum);
+				float rampVal = lum < thresholdLum ? thresholdLum - lum : 1.0f;
 				float3 rgb = tex2D(_ColorRampTex, float2(rampVal, 0.5f));
 
 				return float4(rgb, 1.0f);

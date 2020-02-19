@@ -14,14 +14,12 @@ public class DitherEffect : BaseEffect
     [SerializeField]
     private bool useScrolling = false;
 
+    [SerializeField]
+    private FilterMode filterMode = FilterMode.Bilinear;
+
     // Find the Dither shader source.
     public override void OnCreate()
     {
-        if (ditherTex == null)
-        {
-            ditherTex = Texture2D.whiteTexture;
-        }
-
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/Dither"));
         baseMaterial.SetTexture("_NoiseTex", ditherTex);
         baseMaterial.SetTexture("_ColorRampTex", rampTex);
@@ -41,14 +39,17 @@ public class DitherEffect : BaseEffect
 
         baseMaterial.SetFloat("_XOffset", xOffset);
         baseMaterial.SetFloat("_YOffset", yOffset);
-
-
+        
         RenderTexture super = RenderTexture.GetTemporary(src.width * 2, src.height * 2);
         RenderTexture half = RenderTexture.GetTemporary(src.width / 2, src.height / 2);
-        half.filterMode = FilterMode.Point;
+
+        super.filterMode = filterMode;
+        half.filterMode = filterMode;
+
         Graphics.Blit(src, super);
         Graphics.Blit(super, half, baseMaterial);
         Graphics.Blit(half, dst);
+
         RenderTexture.ReleaseTemporary(half);
         RenderTexture.ReleaseTemporary(super);
     }
