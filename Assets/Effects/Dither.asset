@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Dither
   m_EditorClassIdentifier: 
   ditherTex: {fileID: 2800000, guid: a6c38f6295be1aa488d5a4d7b829516a, type: 3}
-  rampTex: {fileID: 2800000, guid: 1c9d6978f5f18284bb87b5763d0c4ca9, type: 3}
+  rampTex: {fileID: 2800000, guid: 30263814cb241c6428726ec01ff98943, type: 3}
   useScrolling: 0
   filterMode: 0
