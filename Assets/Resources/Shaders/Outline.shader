@@ -45,7 +45,12 @@
 			sampler2D_float _CameraDepthTexture;
 			sampler2D _CameraDepthNormalsTexture;
 
-			float _Sensitivity;
+			float _ColorSensitivity;
+			float _ColorStrength;
+			float _DepthSensitivity;
+			float _DepthStrength;
+			float _NormalsSensitivity;
+			float _NormalsStrength;
 
             float4 frag (v2f i) : SV_Target
             {
@@ -65,7 +70,7 @@
 				float3 c1 = col3 - col2;
 
 				float edgeCol = sqrt(dot(c0, c0) + dot(c1, c1));
-				edgeCol = edgeCol > 0.1f ? 1 : 0;
+				edgeCol = edgeCol > _ColorSensitivity ? _ColorStrength : 0;
 
 				float depth0 = tex2D(_CameraDepthTexture, leftUV).r;
 				float depth1 = tex2D(_CameraDepthTexture, rightUV).r;
@@ -81,7 +86,7 @@
 				float d1 = depth3 - depth2;
 
 				float edgeDepth = sqrt(d0 * d0 + d1 * d1);
-				edgeDepth = edgeDepth > 0.1f ? 1 : 0;
+				edgeDepth = edgeDepth > _DepthSensitivity ? _DepthStrength : 0;
 
 				float3 normal0 = tex2D(_CameraDepthNormalsTexture, leftUV).rgb;
 				float3 normal1 = tex2D(_CameraDepthNormalsTexture, rightUV).rgb;
@@ -92,7 +97,7 @@
 				float3 n1 = normal3 - normal2;
 
 				float edgeNormal = sqrt(dot(n0, n0) + dot(n1, n1));
-				edgeNormal = edgeNormal > 0.15f ? 1 : 0;
+				edgeNormal = edgeNormal > _NormalsSensitivity ? _NormalsStrength : 0;
 
 				float edge = max(max(edgeCol, edgeDepth), edgeNormal);
 
