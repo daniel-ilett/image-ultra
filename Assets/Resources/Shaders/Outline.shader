@@ -40,33 +40,62 @@
             sampler2D _MainTex;
 			float4 _MainTex_TexelSize;
 
-			sampler2D _CameraDepthTexture;
+			sampler2D_float _CameraDepthTexture;
+			sampler2D _CameraDepthNormalsTexture;
+
+			float _Sensitivity;
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-				float2 bottomLeftUV = i.uv - float2(_MainTex_TexelSize.x, _MainTex_TexelSize.y);
-				float2 topRightUV = i.uv + float2(_MainTex_TexelSize.x, _MainTex_TexelSize.y);
-				float2 bottomRightUV = i.uv + float2(_MainTex_TexelSize.x, -_MainTex_TexelSize.y);
-				float2 topLeftUV = i.uv + float2(-_MainTex_TexelSize.x, _MainTex_TexelSize.y);
+				float2 leftUV = i.uv + float2(-_MainTex_TexelSize.x, 0);
+				float2 rightUV = i.uv + float2(_MainTex_TexelSize.x, 0);
+				float2 bottomUV = i.uv + float2(0, -_MainTex_TexelSize.y);
+				float2 topUV = i.uv + float2(0, _MainTex_TexelSize.y);
 
-				float depth0 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomLeftUV).r;
-				float depth1 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topRightUV).r;
-				float depth2 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, bottomRightUV).r;
-				float depth3 = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, topLeftUV).r;
+				float3 col0 = tex2D(_MainTex, leftUV).rgb;
+				float3 col1 = tex2D(_MainTex, rightUV).rgb;
+				float3 col2 = tex2D(_MainTex, bottomUV).rgb;
+				float3 col3 = tex2D(_MainTex, topUV).rgb;
 
-				float depthFiniteDifference0 = depth1 - depth0;
-				float depthFiniteDifference1 = depth3 - depth2;
+				float3 c0 = col1 - col0;
+				float3 c1 = col3 - col2;
 
-				float edgeDepth = sqrt(pow(depthFiniteDifference0, 2) + pow(depthFiniteDifference1, 2)) * 100;
+				float edgeCol = sqrt(dot(c0, c0) + dot(c1, c1));
+				edgeCol = edgeCol > 0.1f ? 1 : 0;
 
-				edgeDepth = edgeDepth > 0.1 ? 1 : 0;
+				float depth0 = tex2D(_CameraDepthTexture, leftUV).r;
+				float depth1 = tex2D(_CameraDepthTexture, rightUV).r;
+				float depth2 = tex2D(_CameraDepthTexture, bottomUV).r;
+				float depth3 = tex2D(_CameraDepthTexture, topUV).r;
 
-				float depthThreshold = 1.5 * depth0;
-				edgeDepth = edgeDepth > depthThreshold ? 1 : 0;
+				depth0 = Linear01Depth(depth0);
+				depth1 = Linear01Depth(depth1);
+				depth2 = Linear01Depth(depth2);
+				depth3 = Linear01Depth(depth3);
 
-				return edgeDepth;
+				float d0 = depth1 - depth0;
+				float d1 = depth3 - depth2;
+
+				float edgeDepth = sqrt(d0 * d0 + d1 * d1);
+				edgeDepth = edgeDepth > 0.1f ? 1 : 0;
+
+				float3 normal0 = tex2D(_CameraDepthNormalsTexture, leftUV).rgb;
+				float3 normal1 = tex2D(_CameraDepthNormalsTexture, rightUV).rgb;
+				float3 normal2 = tex2D(_CameraDepthNormalsTexture, bottomUV).rgb;
+				float3 normal3 = tex2D(_CameraDepthNormalsTexture, topUV).rgb;
+
+				float3 n0 = normal1 - normal0;
+				float3 n1 = normal3 - normal2;
+
+				float edgeNormal = sqrt(dot(n0, n0) + dot(n1, n1));
+
+				edgeNormal = edgeNormal > 0.15f ? 1 : 0;
+
+				float edge = max(max(edgeDepth, edgeNormal), edgeCol);
+
+				return col * (1.0f - edge);
             }
             ENDCG
         }

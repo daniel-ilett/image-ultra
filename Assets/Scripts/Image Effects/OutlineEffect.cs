@@ -16,6 +16,7 @@ public class OutlineEffect : BaseEffect
 
     public override void Render(RenderTexture src, RenderTexture dst)
     {
+        Camera.main.depthTextureMode = DepthTextureMode.DepthNormals;
         Graphics.Blit(src, dst, baseMaterial);
     }
 }

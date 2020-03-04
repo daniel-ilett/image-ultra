@@ -3,6 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_DrawingTex("Drawing Texture", 2D) = "white" {}
     }
     SubShader
     {
@@ -38,6 +39,7 @@
             }
 
             sampler2D _MainTex;
+			sampler2D _DrawingTex;
 
             fixed4 frag (v2f i) : SV_Target
             {
