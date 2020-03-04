@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920747cae83d54f4d862661daa571e0e, type: 3}
   m_Name: Outline
   m_EditorClassIdentifier: 
-  pow: 0
+  useDepth: 1
+  useNormals: 1
+  useColors: 1

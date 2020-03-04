@@ -9,10 +9,13 @@ public class DrawingEffect : BaseEffect
     private Texture2D drawingTex;
 
     [SerializeField]
-    private float shiftCycleTime;
+    private float shiftCycleTime = 1.0f;
 
     [SerializeField]
-    private float strength;
+    private float strength = 0.5f;
+
+    [SerializeField]
+    private float tiling = 10.0f;
 
     // Find the Drawing shader source.
     public override void OnCreate()
@@ -24,13 +27,6 @@ public class DrawingEffect : BaseEffect
     {
         bool isOffset = (Time.time % shiftCycleTime) < (shiftCycleTime / 2.0f);
 
-        var camEuler = Camera.main.transform.eulerAngles;
-        var xOffset = 4.0f * camEuler.y / Camera.main.fieldOfView;
-        var yOffset = -4.0f * Camera.main.aspect * camEuler.x / Camera.main.fieldOfView;
-
-        baseMaterial.SetFloat("_XOffset", xOffset);
-        baseMaterial.SetFloat("_YOffset", yOffset);
-
         if (drawingTex != null)
         {
             baseMaterial.SetTexture("_DrawingTex", drawingTex);
@@ -38,6 +34,7 @@ public class DrawingEffect : BaseEffect
         
         baseMaterial.SetFloat("_OverlayOffset", isOffset ? 0.5f : 0.0f);
         baseMaterial.SetFloat("_Strength", strength);
+        baseMaterial.SetFloat("_Tiling", tiling);
         Graphics.Blit(src, dst, baseMaterial);
     }
 }

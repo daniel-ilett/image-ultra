@@ -47,16 +47,20 @@
 
 			float _OverlayOffset;
 			float _Strength;
+			float _Tiling;
 
             float4 frag (v2f i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv);
 
-				float2 drawingUV = i.uv * 10.0f + _OverlayOffset + float2(_XOffset, _YOffset);
+				float2 drawingUV = i.uv * _Tiling + _OverlayOffset;
 				drawingUV.y *= _ScreenParams.y / _ScreenParams.x;
-				float4 drawingCol = tex2D(_DrawingTex, drawingUV);
+				float4 drawingCol = (tex2D(_DrawingTex, drawingUV) + 
+					tex2D(_DrawingTex, drawingUV / 3.0f)) / 2.0f;
 
-				return lerp(col, drawingCol * col, _Strength);
+				float lum = dot(col, float3(0.3f, 0.59f, 0.11f));
+
+				return lerp(col, drawingCol * col, (1.0f - lum) * _Strength);
             }
             ENDCG
         }

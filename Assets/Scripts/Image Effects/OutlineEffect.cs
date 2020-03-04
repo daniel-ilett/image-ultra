@@ -5,9 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Image Effects Ultra/Outline", order = 1)]
 public class OutlineEffect : BaseEffect
 {
-    [SerializeField]
-    private float pow;
-
     // Find the Outline shader source.
     public override void OnCreate()
     {

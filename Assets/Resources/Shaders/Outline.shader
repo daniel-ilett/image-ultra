@@ -15,6 +15,8 @@
             #pragma vertex vert
             #pragma fragment frag
 
+			#pragma multi_compile EDGE_COLORS EDGE_DEPTH EDGE_NORMALS
+
             #include "UnityCG.cginc"
 
             struct appdata
@@ -45,9 +47,9 @@
 
 			float _Sensitivity;
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
+                float4 col = tex2D(_MainTex, i.uv);
 
 				float2 leftUV = i.uv + float2(-_MainTex_TexelSize.x, 0);
 				float2 rightUV = i.uv + float2(_MainTex_TexelSize.x, 0);
@@ -90,10 +92,9 @@
 				float3 n1 = normal3 - normal2;
 
 				float edgeNormal = sqrt(dot(n0, n0) + dot(n1, n1));
-
 				edgeNormal = edgeNormal > 0.15f ? 1 : 0;
 
-				float edge = max(max(edgeDepth, edgeNormal), edgeCol);
+				float edge = max(max(edgeCol, edgeDepth), edgeNormal);
 
 				return col * (1.0f - edge);
             }

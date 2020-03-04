@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ab051a3f65feb4a958302a9314f737, type: 3}
   m_Name: Drawing
   m_EditorClassIdentifier: 
-  drawingTex: {fileID: 2800000, guid: 45bc803d053eefb49900ab2fa47ac448, type: 3}
+  drawingTex: {fileID: 2800000, guid: 9f722ea35c484e244bfa7fed3cb56d44, type: 3}
   shiftCycleTime: 0.75
-  strength: 0.25
+  strength: 0.5
+  tiling: 25
