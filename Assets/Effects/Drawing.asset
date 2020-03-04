@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Drawing
   m_EditorClassIdentifier: 
   drawingTex: {fileID: 2800000, guid: 9f722ea35c484e244bfa7fed3cb56d44, type: 3}
-  shiftCycleTime: 0.75
+  shiftCycleTime: 0.5
   strength: 0.5
   tiling: 25
+  smudge: 0.001

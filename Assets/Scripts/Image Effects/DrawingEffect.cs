@@ -17,6 +17,9 @@ public class DrawingEffect : BaseEffect
     [SerializeField]
     private float tiling = 10.0f;
 
+    [SerializeField]
+    private float smudge = 1.0f;
+
     // Find the Drawing shader source.
     public override void OnCreate()
     {
@@ -35,6 +38,7 @@ public class DrawingEffect : BaseEffect
         baseMaterial.SetFloat("_OverlayOffset", isOffset ? 0.5f : 0.0f);
         baseMaterial.SetFloat("_Strength", strength);
         baseMaterial.SetFloat("_Tiling", tiling);
+        baseMaterial.SetFloat("_Smudge", smudge);
         Graphics.Blit(src, dst, baseMaterial);
     }
 }
