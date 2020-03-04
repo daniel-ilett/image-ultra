@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorSensitivity: 0.1
   colorStrength: 0.5
-  depthSensitivity: 0.1
-  depthStrength: 1
-  normalsSensitivity: 0.15
-  normalsSrength: 1
+  depthSensitivity: 0.01
+  depthStrength: 0.75
+  normalsSensitivity: 0.1
+  normalsStrength: 0.75

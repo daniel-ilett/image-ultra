@@ -42,7 +42,7 @@
             sampler2D _MainTex;
 			float4 _MainTex_TexelSize;
 
-			sampler2D_float _CameraDepthTexture;
+			sampler2D _CameraDepthTexture;
 			sampler2D _CameraDepthNormalsTexture;
 
 			float _ColorSensitivity;

@@ -21,7 +21,7 @@ public class OutlineEffect : BaseEffect
     private float normalsSensitivity = 0.1f;
 
     [SerializeField]
-    private float normalsSrength = 1.0f;
+    private float normalsStrength = 1.0f;
 
     // Find the Outline shader source.
     public override void OnCreate()
@@ -36,7 +36,7 @@ public class OutlineEffect : BaseEffect
         baseMaterial.SetFloat("_DepthSensitivity", depthSensitivity);
         baseMaterial.SetFloat("_DepthStrength", depthStrength);
         baseMaterial.SetFloat("_NormalsSensitivity", normalsSensitivity);
-        baseMaterial.SetFloat("_NormalsStrength", normalsSrength);
+        baseMaterial.SetFloat("_NormalsStrength", normalsStrength);
 
         Camera.main.depthTextureMode = DepthTextureMode.DepthNormals;
         Graphics.Blit(src, dst, baseMaterial);

@@ -43,13 +43,11 @@
 			sampler2D _DrawingTex;
 			sampler2D _CameraDepthTexture;
 
-			float _XOffset;
-			float _YOffset;
-
 			float _OverlayOffset;
 			float _Strength;
 			float _Tiling;
 			float _Smudge;
+			float _DepthThreshold;
 
             float4 frag (v2f i) : SV_Target
             {
@@ -62,12 +60,12 @@
 				float4 col = tex2D(_MainTex, texUV);
 
 				float lum = dot(col, float3(0.3f, 0.59f, 0.11f));
-
 				float4 drawing = lerp(col, drawingCol * col, (1.0f - lum) * _Strength);
+
 				float depth = tex2D(_CameraDepthTexture, i.uv).r;
 				depth = Linear01Depth(depth);
 
-				return depth < 0.99f ? drawing : col;
+				return depth < _DepthThreshold ? drawing : col;
             }
             ENDCG
         }
