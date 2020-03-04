@@ -4,6 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		_DrawingTex("Drawing Texture", 2D) = "white" {}
+		_OverlayOffset("Overlay Offset", Float) = 0
     }
     SubShader
     {
@@ -41,10 +42,21 @@
             sampler2D _MainTex;
 			sampler2D _DrawingTex;
 
-            fixed4 frag (v2f i) : SV_Target
+			float _XOffset;
+			float _YOffset;
+
+			float _OverlayOffset;
+			float _Strength;
+
+            float4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                return col;
+                float4 col = tex2D(_MainTex, i.uv);
+
+				float2 drawingUV = i.uv * 10.0f + _OverlayOffset + float2(_XOffset, _YOffset);
+				drawingUV.y *= _ScreenParams.y / _ScreenParams.x;
+				float4 drawingCol = tex2D(_DrawingTex, drawingUV);
+
+				return lerp(col, drawingCol * col, _Strength);
             }
             ENDCG
         }
