@@ -6,19 +6,25 @@ using UnityEngine;
 public class DisintegrateEffect : BaseEffect
 {
     [SerializeField]
-    private Texture2D dissolveTexture;
+    private Texture2D dissolveNoise;
 
     [SerializeField]
-    private Texture2D dissolveColour;
+    private Texture2D colorRamp;
 
     [SerializeField]
-    private float threshold = 0.5f;
+    private Texture2D alphaRamp;
+
+    [SerializeField]
+    private Texture2D flowMap;
 
     [SerializeField]
     private float strength = 0.5f;
 
     [SerializeField]
     private float tiling = 1.0f;
+
+    [SerializeField]
+    private Vector2 flickerDir = Vector2.zero;
 
     [SerializeField]
     private Color backgroundColour = Color.black;
@@ -28,12 +34,14 @@ public class DisintegrateEffect : BaseEffect
     {
         baseMaterial = new Material(Resources.Load<Shader>("Shaders/Disintegrate"));
 
-        baseMaterial.SetTexture("_DissolveTex", dissolveTexture);
-        baseMaterial.SetTexture("_DissolveRamp", dissolveColour);
-        baseMaterial.SetFloat("_Threshold", threshold);
+        baseMaterial.SetTexture("_DissolveNoise", dissolveNoise);
+        baseMaterial.SetTexture("_ColorRamp", colorRamp);
+        baseMaterial.SetTexture("_AlphaRamp", alphaRamp);
+        baseMaterial.SetTexture("_FlowMap", flowMap);
         baseMaterial.SetFloat("_Strength", strength);
         baseMaterial.SetFloat("_Tiling", tiling);
-        baseMaterial.SetColor("_BGColour", backgroundColour);
+        baseMaterial.SetVector("_FlickerDir", flickerDir);
+        baseMaterial.SetColor("_BackgroundColor", backgroundColour);
     }
 
     public override void Render(RenderTexture src, RenderTexture dst)

@@ -42,21 +42,38 @@
                 return o;
             }
 
-            uniform sampler2D _MainTex;
-			uniform sampler2D _DissolveTex;
-			uniform sampler2D _DissolveRamp;
-			uniform float _Threshold;
-			uniform float _Tiling;
-			uniform float4 _BGColour;
+            sampler2D _MainTex;
+			sampler2D _DissolveNoise;
+			sampler2D _ColorRamp;
+			sampler2D _AlphaRamp;
+			sampler2D _FlowMap;
+			float _Strength;
+			float _Tiling;
+			float2 _FlickerDir;
+			float4 _BackgroundColor;
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-				fixed dissolve = _Threshold + tex2D(_DissolveTex, i.uv * _Tiling);
-				fixed4 dissolveColour = tex2D(_DissolveRamp, float2(dissolve, 0.5f));
+				float4 col = tex2D(_MainTex, i.uv);
 
-				col *= dissolveColour;
-				col = lerp(col, _BGColour, 1.0f - dissolveColour.a);
+				half3 normal = UnpackNormal(tex2D(_FlowMap, (i.uv + _Time.x) % 1.0));
+				float2 uvOffset = i.uv + normal * _Strength * 0.05f;
+
+				float2 distance = abs((i.uv - 0.5f) * 2.0f);
+				float dissolveDist = sqrt(distance.x*distance.x + distance.y*distance.y);
+
+				float2 dissolveUV = i.uv * _Tiling;
+				float dissolveBase = (tex2D(_DissolveNoise, dissolveUV) + 
+					tex2D(_DissolveNoise, dissolveUV * 3.0f + _Time.x * _FlickerDir)) / 2.0f;
+
+				float dissolve = (dissolveBase + _Strength) * dissolveDist;
+
+				float4 dissolveColor = tex2D(_ColorRamp, float2(dissolve, 0.5f));
+				float dissolveAlpha = tex2D(_AlphaRamp, float2(dissolve, 0.5f)).a;
+
+				col = lerp(col, dissolveColor, dissolveColor.a);
+
+				col = lerp(_BackgroundColor, col, dissolveAlpha);
 				
                 return col;
             }
