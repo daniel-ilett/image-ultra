@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc22380f4a7597a4e8cb7784b6c379b9, type: 3}
-  m_Name: Disintegrate
+  m_Name: Fire
   m_EditorClassIdentifier: 
   dissolveNoise: {fileID: 2800000, guid: 45bc803d053eefb49900ab2fa47ac448, type: 3}
   colorRamp: {fileID: 2800000, guid: aecc48f80ac806e42a6f969b808c06a1, type: 3}
   alphaRamp: {fileID: 2800000, guid: 193041d5b8509dd49a1be7a859443b3f, type: 3}
   flowMap: {fileID: 2800000, guid: 2de494aec6f5ceb438b9bbc4a72a847f, type: 3}
-  strength: 0.75
+  size: 0.75
+  strength: 0.01
   tiling: 1
   flickerDir: {x: 1.5, y: 1}
   backgroundColour: {r: 0, g: 0, b: 0, a: 1}

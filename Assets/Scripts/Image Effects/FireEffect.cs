@@ -18,6 +18,9 @@ public class FireEffect : BaseEffect
     private Texture2D flowMap;
 
     [SerializeField]
+    private float size = 1.0f;
+
+    [SerializeField]
     private float strength = 0.5f;
 
     [SerializeField]
@@ -38,6 +41,7 @@ public class FireEffect : BaseEffect
         baseMaterial.SetTexture("_ColorRamp", colorRamp);
         baseMaterial.SetTexture("_AlphaRamp", alphaRamp);
         baseMaterial.SetTexture("_FlowMap", flowMap);
+        baseMaterial.SetFloat("_Size", size);
         baseMaterial.SetFloat("_Strength", strength);
         baseMaterial.SetFloat("_Tiling", tiling);
         baseMaterial.SetVector("_FlickerDir", flickerDir);
