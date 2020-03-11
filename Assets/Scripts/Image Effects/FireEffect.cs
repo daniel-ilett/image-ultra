@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Image Effects Ultra/Disintegrate", order = 1)]
-public class DisintegrateEffect : BaseEffect
+[CreateAssetMenu(menuName = "Image Effects Ultra/Fire", order = 1)]
+public class FireEffect : BaseEffect
 {
     [SerializeField]
     private Texture2D dissolveNoise;
@@ -29,10 +29,10 @@ public class DisintegrateEffect : BaseEffect
     [SerializeField]
     private Color backgroundColour = Color.black;
 
-    // Find the Disintegrate shader source.
+    // Find the Fire shader source.
     public override void OnCreate()
     {
-        baseMaterial = new Material(Resources.Load<Shader>("Shaders/Disintegrate"));
+        baseMaterial = new Material(Resources.Load<Shader>("Shaders/Fire"));
 
         baseMaterial.SetTexture("_DissolveNoise", dissolveNoise);
         baseMaterial.SetTexture("_ColorRamp", colorRamp);

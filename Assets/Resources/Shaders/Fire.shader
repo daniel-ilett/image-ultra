@@ -1,4 +1,4 @@
-﻿Shader "UltraEffects/Disintegrate"
+﻿Shader "UltraEffects/Fire"
 {
     Properties
     {
